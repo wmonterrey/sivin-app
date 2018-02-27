@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string-array name="menu_main">
+        <item>@string/main_1</item>
+        <item>@string/choose_segmento</item>
+        <item>@string/download</item>
+        <item>@string/upload</item>
+        <item>@string/catalog</item>
+    </string-array>
+    
+    <string-array name="menu_encuesta">
+        <item>@string/identificacion</item>
+        <item>@string/secciona</item>
+        <item>@string/seccionb</item>
+        <item>@string/seccionc</item>
+        <item>@string/secciond</item>
+        <item>@string/seccione</item>
+        <item>@string/seccionf</item>
+        <item>@string/secciong</item>
+        <item>@string/seccionh</item>
+        <item>@string/finalizar</item>
+        <item>@string/ubicacion</item>
+    </string-array>
+    
+    
+</resources>

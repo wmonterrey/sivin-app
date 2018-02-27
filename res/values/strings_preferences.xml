@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="preferences">Configuración</string>
+    
+    <string name="server_preferences">Configuración Servidor</string>
+    <string name="default_server_url">http://wserver.minsa.gob.ni:8083/sivin/</string>
+    <string name="server_url">URL de servidor</string>
+    <string name="check_server">Verificar en el servidor</string>
+    <string name="check_wipe">Limpiar base de datos</string>
+    <string name="url_error">Error en la dirección</string>
+    <string name="change_server_url">Cambiar URL de servidor</string>
+    
+    <string name="app_preferences">Configuración Aplicación</string>
+    <string name="update_app_preferences">Actualizar Aplicación SIVIN</string>
+    <string name="update_barcodeapp_preferences">Actualizar Aplicación Código Barras</string>
+    <string name="version_app_preferences">Versión 1.2</string>
+    <string name="versiondate_app_preferences">Feb 16, 2018</string>
+  
+</resources>

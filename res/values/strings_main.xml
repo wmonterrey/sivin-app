@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_1"> Ingresar Encuesta</string>
+    <string name="download"> Descargar Datos</string>
+    <string name="upload"> Subir Datos</string>
+    <string name="catalog"> Catálogos</string>
+</resources>

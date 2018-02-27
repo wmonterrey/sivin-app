@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ni.gob.minsa.sivin"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="17"
+        android:targetSdkVersion="19" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true" />
+
+    <application
+        android:allowBackup="false"
+        android:name=".SivinApplication"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:hardwareAccelerated="false"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="ni.gob.minsa.sivin.LoginActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateVisible" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="ni.gob.minsa.sivin.MainActivity" 
+            android:screenOrientation="portrait" />
+        <activity android:name="ni.gob.minsa.sivin.preferences.PreferencesActivity" 
+            android:screenOrientation="portrait" />
+        <activity android:name="ni.gob.minsa.sivin.server.DownloadEncuestasActivity" 
+            android:screenOrientation="portrait" />
+        <activity android:name="ni.gob.minsa.sivin.server.DownloadCatalogosActivity" 
+            android:screenOrientation="portrait" />
+        <activity android:name="ni.gob.minsa.sivin.server.UploadEncuestasActivity" 
+            android:screenOrientation="portrait" />
+        <activity android:name="ni.gob.minsa.sivin.activities.ListaSegmentosActivity" 
+            android:screenOrientation="portrait" />
+        <activity android:name="ni.gob.minsa.sivin.activities.IngresarEncuestaActivity" 
+            android:screenOrientation="portrait" />
+        <activity android:name="ni.gob.minsa.sivin.activities.MenuEncuestaActivity" 
+            android:screenOrientation="portrait" />
+        <activity android:name="ni.gob.minsa.sivin.activities.enterdata.EncuestaIdentificacionActivity" 
+            android:screenOrientation="portrait" />
+        <activity android:name="ni.gob.minsa.sivin.activities.enterdata.SeccionAActivity" 
+            android:screenOrientation="portrait" />
+        <activity android:name="ni.gob.minsa.sivin.activities.enterdata.SeccionBActivity" 
+            android:screenOrientation="portrait" />
+        <activity android:name="ni.gob.minsa.sivin.activities.enterdata.SeccionCActivity" 
+            android:screenOrientation="portrait" />
+        <activity android:name="ni.gob.minsa.sivin.activities.enterdata.SeccionDActivity" 
+            android:screenOrientation="portrait" />
+        <activity android:name="ni.gob.minsa.sivin.activities.enterdata.SeccionEActivity" 
+            android:screenOrientation="portrait" />
+        <activity android:name="ni.gob.minsa.sivin.activities.enterdata.SeccionFActivity" 
+            android:screenOrientation="portrait" />
+        <activity android:name="ni.gob.minsa.sivin.activities.enterdata.SeccionGActivity" 
+            android:screenOrientation="portrait" />
+        <activity android:name="ni.gob.minsa.sivin.activities.enterdata.SeccionHActivity" 
+            android:screenOrientation="portrait" />
+        <activity android:name="ni.gob.minsa.sivin.activities.UbicacionActivity" 
+            android:screenOrientation="portrait" />
+    </application>
+
+</manifest>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Copyright 2013 The Android Open Source Project
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<resources>
+    <string name="intro_message">
+        <![CDATA[
+        
+            (1) Buenos días/tarde... Mi nombre es...  Somos del MINSA..........\n\n
+            
+			(2) La encuesta es para conocer sobre la nutrición de los niñ@s y las mujeres....\n\n
+			
+			(3) Identifique a la madre o cuidador/a solicite el consentimiento para la entrevista, la antropometría y  muestras biológicas. Si accede llene el formato y pida la firma.....\n\n
+			
+			(4) Asegure  la confidencialidad. Recuerde pedir la tarjeta de  Atención integral a la niñez y la Cedula de la entrevistada.....\n\n
+			
+			(5) Se van a tomar muestras de algunos alimentos como la sal y azúcar....\n\n
+			
+			(6) Se va a medir y pesar al niñ@s y a la entrevistada y a tomar una muestra de sangre y de orina......\n\n
+		
+			(7) La información es confidencial....\n\n
+			
+        ]]>
+    </string>
+</resources>
