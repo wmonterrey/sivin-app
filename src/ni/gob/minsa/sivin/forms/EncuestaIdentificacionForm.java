@@ -67,12 +67,13 @@ public class EncuestaIdentificacionForm extends AbstractWizardModel {
 		DateMidnight dmDesde = new DateMidnight(new Date().getTime());
 		DateMidnight dmHasta = new DateMidnight(new Date().getTime());
     	Page fechaEntrevista = new NewDatePage(this,labels.getFechaEntrevista(), labels.getFechaEntrevistaHint(), Constants.WIZARD, true).setRangeValidation(true, dmDesde, dmHasta).setRequired(true);
+    	Page encNum = new SingleFixedChoicePage(this,labels.getEncNum(), "", Constants.WIZARD, true).setRequired(true);
     	Page encuestador = new SingleFixedChoicePage(this,labels.getEncuestador(), labels.getEncuestadorHint(), Constants.WIZARD, true).setChoices(catEncuestadores).setRequired(true);
     	//Page supervisor = new SingleFixedChoicePage(this,labels.getSupervisor(), labels.getSupervisorHint(), Constants.WIZARD, true).setChoices(catSupervisores).setRequired(true);
     	Page jefeFamilia = new TextPage(this,labels.getJefeFamilia(),labels.getJefeFamiliaHint(),Constants.WIZARD,true).setPatternValidation(true, ".{6,250}").setRequired(true);
     	Page sexJefeFamilia = new SingleFixedChoicePage(this,labels.getSexJefeFamilia(), labels.getSexJefeFamiliaHint(), Constants.WIZARD, true).setChoices(catSexo).setRequired(true);
     	Page numPersonas = new NumberPage(this,labels.getNumPersonas(),labels.getNumPersonasHint(),Constants.WIZARD,true).setRangeValidation(true, 1, 30).setRequired(true);
-        return new PageList(introMessage,fechaEntrevista,encuestador,jefeFamilia,sexJefeFamilia,numPersonas);
+        return new PageList(introMessage,fechaEntrevista,encNum,encuestador,jefeFamilia,sexJefeFamilia,numPersonas);
     }
 
 	public EncuestaIdentificacionFormLabels getLabels() {

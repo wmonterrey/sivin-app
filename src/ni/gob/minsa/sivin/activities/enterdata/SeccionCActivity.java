@@ -73,7 +73,6 @@ public class SeccionCActivity extends FragmentActivity implements
     private DeviceInfo infoMovil;
     private static Segmento segmento = new Segmento();
     private static Encuesta encuesta = new Encuesta();
-    private static Integer nextViv = 0;
 	private String username;
 	private SharedPreferences settings;
 	private static final int EXIT = 1;
@@ -99,7 +98,6 @@ public class SeccionCActivity extends FragmentActivity implements
 		infoMovil = new DeviceInfo(SeccionCActivity.this);
         segmento = (Segmento) getIntent().getExtras().getSerializable(Constants.SEGMENTO);
         encuesta = (Encuesta) getIntent().getExtras().getSerializable(Constants.ENCUESTA);
-        nextViv = (Integer) getIntent().getExtras().getInt(Constants.VIVIENDA);
         
         String mPass = ((SivinApplication) this.getApplication()).getPassApp();
         mWizardModel = new SeccionCForm(this,mPass);
@@ -320,7 +318,6 @@ public class SeccionCActivity extends FragmentActivity implements
                         Intent i;
                         if (segmento!=null) arguments.putSerializable(Constants.SEGMENTO , segmento);
                         if (encuesta!=null) arguments.putSerializable(Constants.ENCUESTA , encuesta);
-                        if (nextViv!=null) arguments.putSerializable(Constants.VIVIENDA , nextViv);
                         i = new Intent(getApplicationContext(),
                                 MenuEncuestaActivity.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -493,27 +490,27 @@ public class SeccionCActivity extends FragmentActivity implements
         	}
         	if (page.getTitle().equals(labels.getN1())) {
         		Integer numNinosDig = Integer.parseInt(mWizardModel.findByKey(labels.getNumNinos()).getData().getString(TextPage.SIMPLE_DATA_KEY));
-        		seleccionarNino(nextViv, numNinosDig);
+        		seleccionarNino(encuesta.getNumEncuesta(), numNinosDig);
         	}
         	if (page.getTitle().equals(labels.getN2())) {
         		Integer numNinosDig = Integer.parseInt(mWizardModel.findByKey(labels.getNumNinos()).getData().getString(TextPage.SIMPLE_DATA_KEY));
-        		seleccionarNino(nextViv, numNinosDig);
+        		seleccionarNino(encuesta.getNumEncuesta(), numNinosDig);
         	}
         	if (page.getTitle().equals(labels.getN3())) {
         		Integer numNinosDig = Integer.parseInt(mWizardModel.findByKey(labels.getNumNinos()).getData().getString(TextPage.SIMPLE_DATA_KEY));
-        		seleccionarNino(nextViv, numNinosDig);
+        		seleccionarNino(encuesta.getNumEncuesta(), numNinosDig);
         	}
         	if (page.getTitle().equals(labels.getN4())) {
         		Integer numNinosDig = Integer.parseInt(mWizardModel.findByKey(labels.getNumNinos()).getData().getString(TextPage.SIMPLE_DATA_KEY));
-        		seleccionarNino(nextViv, numNinosDig);
+        		seleccionarNino(encuesta.getNumEncuesta(), numNinosDig);
         	}
         	if (page.getTitle().equals(labels.getN5())) {
         		Integer numNinosDig = Integer.parseInt(mWizardModel.findByKey(labels.getNumNinos()).getData().getString(TextPage.SIMPLE_DATA_KEY));
-        		seleccionarNino(nextViv, numNinosDig);
+        		seleccionarNino(encuesta.getNumEncuesta(), numNinosDig);
         	}
         	if (page.getTitle().equals(labels.getN6())) {
         		Integer numNinosDig = Integer.parseInt(mWizardModel.findByKey(labels.getNumNinos()).getData().getString(TextPage.SIMPLE_DATA_KEY));
-        		seleccionarNino(nextViv, numNinosDig);
+        		seleccionarNino(encuesta.getNumEncuesta(), numNinosDig);
         	}
         	if (page.getTitle().equals(labels.getFnacselec())) {
         		Date fnacEntParsed = mDateFormat.parse(page.getData().getString(TextPage.SIMPLE_DATA_KEY));
@@ -750,7 +747,6 @@ public class SeccionCActivity extends FragmentActivity implements
             Intent i;
             if (segmento!=null) arguments.putSerializable(Constants.SEGMENTO , segmento);
             if (encuesta!=null) arguments.putSerializable(Constants.ENCUESTA , encuesta);
-            if (nextViv!=null) arguments.putSerializable(Constants.VIVIENDA , nextViv);
             i = new Intent(getApplicationContext(),
                     MenuEncuestaActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

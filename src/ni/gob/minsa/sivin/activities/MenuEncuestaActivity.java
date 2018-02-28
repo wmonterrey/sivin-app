@@ -44,7 +44,6 @@ import android.widget.Toast;
 public class MenuEncuestaActivity extends AbstractAsyncActivity {
 	private static Encuesta mEncuesta = new Encuesta();
 	private static Segmento mSegmento = new Segmento();
-	private static Integer nextViv = 0;
 	
 	private GridView gridView;
 	private TextView textView;
@@ -86,7 +85,6 @@ public class MenuEncuestaActivity extends AbstractAsyncActivity {
 		//Aca se recupera los datos de la encuesta y el segmento
 		mSegmento = (Segmento) getIntent().getExtras().getSerializable(Constants.SEGMENTO);
 		mEncuesta = (Encuesta) getIntent().getExtras().getSerializable(Constants.ENCUESTA);
-		nextViv = (Integer) getIntent().getExtras().getInt(Constants.VIVIENDA);
 		
 		pendiente = mEncuesta.getEstado()==Constants.STATUS_NOT_FINALIZED;
 		
@@ -98,10 +96,10 @@ public class MenuEncuestaActivity extends AbstractAsyncActivity {
 												getString(R.string.enc_departamento)+":"+mSegmento.getDepartamento());
 		
 		if(mEncuesta.getIdent()==null) {
-			textView.setText(textView.getText()+"\n"+getString(R.string.enc_new)+"\n"+getString(R.string.enc_num)+": "+nextViv);
+			textView.setText(textView.getText()+"\n"+getString(R.string.enc_new));
 		}
 		else {
-			textView.setText(textView.getText()+"\n"+mEncuesta.getJefeFamilia()+"\n"+getString(R.string.enc_num)+": "+mEncuesta.getNumEncuesta());
+			textView.setText(textView.getText()+"\n"+mEncuesta.getJefeFamilia()+"\n"+getString(R.string.enc_num)+": "+mEncuesta.getCodigo());
 			
 		}
 		
@@ -499,7 +497,6 @@ public class MenuEncuestaActivity extends AbstractAsyncActivity {
             try {
             	if (mEncuesta != null) arguments.putSerializable(Constants.ENCUESTA, mEncuesta);
                 if (mSegmento != null) arguments.putSerializable(Constants.SEGMENTO, mSegmento);
-                if (nextViv != null) arguments.putInt(Constants.VIVIENDA, nextViv);
                 switch (position) {
                     case IDENTIFICACION:
                         i = new Intent(getApplicationContext(),

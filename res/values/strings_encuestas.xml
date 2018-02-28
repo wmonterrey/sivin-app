@@ -30,6 +30,7 @@
    	<string name="intro">Recuerde esta información para la presentación en el hogar:</string>
    	<string name="fechaEntrevista">Fecha entrevista</string>
     <string name="fechaEntrevistaHint">1. Fecha de la Entrevista:</string>
+    <string name="encNum">Número de Vivienda:</string>
     <string name="encuestador">Encuestador</string>
     <string name="encuestadorHint">2. Nombre del encuestador:</string>
     <string name="supervisor">Supervisor</string>
@@ -315,11 +316,11 @@
 	<string name="msEnt">A la Entrevistada se le tomó muestra de Sangre?</string>
 	<string name="codMsEnt">Código de la muestra de Sangre de la Entrevistada</string>
 	<string name="codMsEntBc">Código de la muestra de Sangre de la Entrevistada (Escanear)</string>
-	<string name="hbEnt">Anote el valor de Hb de la Entrevistada (Entre 4 y 18)</string>
+	<string name="hbEnt">Anote el valor de Hb de la Entrevistada (Entre 4 y 18, 88 es no realizado)</string>
 	<string name="msNin">A niño se le tomó muestra de Sangre?</string>
 	<string name="codMsNin">Código de la muestra de Sangre del niño</string>
 	<string name="codMsNinBc">Código de la muestra de Sangre del niño (Escanear)</string>
-	<string name="hbNin">Anote el valor de Hb del niño (Entre 4 y 18)</string>
+	<string name="hbNin">Anote el valor de Hb del niño (Entre 4 y 18, 88 es no realizado)</string>
 	<string name="moEnt">A la entrevistada se le tomó muestra de Orina?</string>
 	<string name="codMoEnt">Código de la muestra de Orina de la Entrevistada</string>
 	<string name="codMoEntBc">Código de la muestra de Orina de la Entrevistada (Escanear)</string>

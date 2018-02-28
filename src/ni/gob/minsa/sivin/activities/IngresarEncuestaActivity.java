@@ -41,7 +41,6 @@ public class IngresarEncuestaActivity extends AbstractAsyncListActivity {
 	private List<Encuesta> mEncuestas = new ArrayList<Encuesta>();
 	private SharedPreferences settings;
 	private String mSegmento;
-	private Integer nextViv = 0;
     private Segmento segmento = null;
     private Encuesta encuesta = null;
     private TextView mLabelTitle;
@@ -99,7 +98,6 @@ public class IngresarEncuestaActivity extends AbstractAsyncListActivity {
                         Bundle arguments = new Bundle();
         		        if (segmento!=null) arguments.putSerializable(Constants.SEGMENTO , segmento);
         		        arguments.putSerializable(Constants.ENCUESTA , new Encuesta());
-        		        arguments.putInt(Constants.VIVIENDA, nextViv);
                         Intent i = new Intent(getApplicationContext(),
                         		MenuEncuestaActivity.class);
                         i.putExtras(arguments);
@@ -201,8 +199,6 @@ public class IngresarEncuestaActivity extends AbstractAsyncListActivity {
 			String strSegmento = values[0];
 			try {
 				sivinAdapter.open();
-				nextViv = sivinAdapter.selectUltimaEncuestaSegmento(strSegmento);
-				nextViv = nextViv + 1;
 				segmento = sivinAdapter.getSegmento(MainDBConstants.segmento + " = '"+ strSegmento + "'", null);
 				mEncuestas = sivinAdapter.getEncuestas(MainDBConstants.segmento + " = '"+ strSegmento + "'", MainDBConstants.numEncuesta);
 				sivinAdapter.close();

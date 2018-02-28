@@ -73,7 +73,6 @@ public class SeccionBActivity extends FragmentActivity implements
     private DeviceInfo infoMovil;
     private static Segmento segmento = new Segmento();
     private static Encuesta encuesta = new Encuesta();
-    private static Integer nextViv = 0;
 	private String username;
 	private SharedPreferences settings;
 	private static final int EXIT = 1;
@@ -99,7 +98,6 @@ public class SeccionBActivity extends FragmentActivity implements
 		infoMovil = new DeviceInfo(SeccionBActivity.this);
         segmento = (Segmento) getIntent().getExtras().getSerializable(Constants.SEGMENTO);
         encuesta = (Encuesta) getIntent().getExtras().getSerializable(Constants.ENCUESTA);
-        nextViv = (Integer) getIntent().getExtras().getInt(Constants.VIVIENDA);
         
         String mPass = ((SivinApplication) this.getApplication()).getPassApp();
         mWizardModel = new SeccionBForm(this,mPass);
@@ -385,7 +383,6 @@ public class SeccionBActivity extends FragmentActivity implements
                         Intent i;
                         if (segmento!=null) arguments.putSerializable(Constants.SEGMENTO , segmento);
                         if (encuesta!=null) arguments.putSerializable(Constants.ENCUESTA , encuesta);
-                        if (nextViv!=null) arguments.putSerializable(Constants.VIVIENDA , nextViv);
                         i = new Intent(getApplicationContext(),
                                 MenuEncuestaActivity.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -998,7 +995,6 @@ public class SeccionBActivity extends FragmentActivity implements
             Intent i;
             if (segmento!=null) arguments.putSerializable(Constants.SEGMENTO , segmento);
             if (encuesta!=null) arguments.putSerializable(Constants.ENCUESTA , encuesta);
-            if (nextViv!=null) arguments.putSerializable(Constants.VIVIENDA , nextViv);
             i = new Intent(getApplicationContext(),
                     MenuEncuestaActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

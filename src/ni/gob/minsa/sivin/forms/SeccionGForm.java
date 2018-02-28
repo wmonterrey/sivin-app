@@ -50,11 +50,11 @@ public class SeccionGForm extends AbstractWizardModel {
     	Page msEnt = new SingleFixedChoicePage(this,labels.getMsEnt(), "", Constants.WIZARD, true).setChoices(catSNNA).setRequired(true);
     	Page codMsEnt = new TextPage(this,labels.getCodMsEnt(),"",Constants.WIZARD,false).setPatternValidation(true, ".{11,50}").setRequired(true);
     	Page codMsEntBc = new BarcodePage(this,labels.getCodMsEntBc(),"",Constants.WIZARD,false).setPatternValidation(true, ".{11,50}").setRequired(true);
-    	Page hbEnt = new NumberPage(this,labels.getHbEnt(),"",Constants.WIZARD,false).setRangeValidation(true, 4, 18).setRequired(true);
+    	Page hbEnt = new NumberPage(this,labels.getHbEnt(),"",Constants.WIZARD,true).setRequired(true);
     	Page msNin = new SingleFixedChoicePage(this,labels.getMsNin(), "", Constants.WIZARD, true).setChoices(catSN).setRequired(true);
     	Page codMsNin = new TextPage(this,labels.getCodMsNin(),"",Constants.WIZARD,false).setPatternValidation(true, ".{11,50}").setRequired(true);
     	Page codMsNinBc = new BarcodePage(this,labels.getCodMsNinBc(),"",Constants.WIZARD,false).setPatternValidation(true, ".{11,50}").setRequired(true);
-    	Page hbNin = new NumberPage(this,labels.getHbNin(),"",Constants.WIZARD,false).setRangeValidation(true, 4, 18).setRequired(true);
+    	Page hbNin = new NumberPage(this,labels.getHbNin(),"",Constants.WIZARD,true).setRequired(true);
     	Page moEnt = new SingleFixedChoicePage(this,labels.getMoEnt(), "", Constants.WIZARD, true).setChoices(catSNNA).setRequired(true);
     	Page codMoEnt = new TextPage(this,labels.getCodMoEnt(),"",Constants.WIZARD,false).setPatternValidation(true, ".{11,50}").setRequired(true);
     	Page codMoEntBc = new BarcodePage(this,labels.getCodMoEntBc(),"",Constants.WIZARD,false).setPatternValidation(true, ".{11,50}").setRequired(true);

@@ -14,7 +14,7 @@
     <string name="app_preferences">Configuración Aplicación</string>
     <string name="update_app_preferences">Actualizar Aplicación SIVIN</string>
     <string name="update_barcodeapp_preferences">Actualizar Aplicación Código Barras</string>
-    <string name="version_app_preferences">Versión 1.2</string>
-    <string name="versiondate_app_preferences">Feb 16, 2018</string>
+    <string name="version_app_preferences">Versión 1.3</string>
+    <string name="versiondate_app_preferences">Feb 27, 2018</string>
   
 </resources>

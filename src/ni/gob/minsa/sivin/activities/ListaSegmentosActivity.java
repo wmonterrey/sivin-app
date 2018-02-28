@@ -19,6 +19,7 @@ import ni.gob.minsa.sivin.R;
 import ni.gob.minsa.sivin.database.SivinAdapter;
 import ni.gob.minsa.sivin.domain.Segmento;
 import ni.gob.minsa.sivin.preferences.PreferencesActivity;
+import ni.gob.minsa.sivin.utils.MainDBConstants;
 import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.AlertDialog;
@@ -170,7 +171,7 @@ public class ListaSegmentosActivity extends AbstractAsyncListActivity {
 			filtro = values[0];
 			try {
 				sivinAdapter.open();
-				mSegmentos = sivinAdapter.getSegmentos(filtro, null);
+				mSegmentos = sivinAdapter.getSegmentos(filtro, MainDBConstants.codigo);
 				sivinAdapter.close();
 			} catch (Exception e) {
 				Log.e(TAG, e.getLocalizedMessage(), e);

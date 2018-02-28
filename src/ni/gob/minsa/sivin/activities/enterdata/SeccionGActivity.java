@@ -65,7 +65,6 @@ public class SeccionGActivity extends FragmentActivity implements
     private DeviceInfo infoMovil;
     private static Segmento segmento = new Segmento();
     private static Encuesta encuesta = new Encuesta();
-    private static Integer nextViv = 0;
 	private String username;
 	private SharedPreferences settings;
 	private static final int EXIT = 1;
@@ -92,7 +91,6 @@ public class SeccionGActivity extends FragmentActivity implements
 		infoMovil = new DeviceInfo(SeccionGActivity.this);
         segmento = (Segmento) getIntent().getExtras().getSerializable(Constants.SEGMENTO);
         encuesta = (Encuesta) getIntent().getExtras().getSerializable(Constants.ENCUESTA);
-        nextViv = (Integer) getIntent().getExtras().getInt(Constants.VIVIENDA);
         barcode = settings.getBoolean(PreferencesActivity.KEY_BARCODE, true);
         
         String mPass = ((SivinApplication) this.getApplication()).getPassApp();
@@ -109,6 +107,25 @@ public class SeccionGActivity extends FragmentActivity implements
         	Bundle dato = null;
         	MessageResource datoCatalogo;
         	Page modifPage;
+        	
+        	modifPage = (TextPage) mWizardModel.findByKey(labels.getCodMsEnt());
+        	modifPage.setHint(getString(R.string.enc_num)+": "+encuesta.getCodigo());
+        	
+        	modifPage = (BarcodePage) mWizardModel.findByKey(labels.getCodMsEntBc());
+        	modifPage.setHint(getString(R.string.enc_num)+": "+encuesta.getCodigo());
+        	
+        	modifPage = (TextPage) mWizardModel.findByKey(labels.getCodMsNin());
+        	modifPage.setHint(getString(R.string.enc_num)+": "+encuesta.getCodigo());
+        	
+        	modifPage = (BarcodePage) mWizardModel.findByKey(labels.getCodMsNinBc());
+        	modifPage.setHint(getString(R.string.enc_num)+": "+encuesta.getCodigo());
+        	
+        	modifPage = (TextPage) mWizardModel.findByKey(labels.getCodMoEnt());
+        	modifPage.setHint(getString(R.string.enc_num)+": "+encuesta.getCodigo());
+        	
+        	modifPage = (BarcodePage) mWizardModel.findByKey(labels.getCodMoEntBc());
+        	modifPage.setHint(getString(R.string.enc_num)+": "+encuesta.getCodigo());
+        	
         	if(tieneValor(encuesta.getMsEnt())){
                 modifPage = (SingleFixedChoicePage) mWizardModel.findByKey(labels.getMsEnt());
                 datoCatalogo = sivinAdapter.getMessageResource(MainDBConstants.catKey + "='" + encuesta.getMsEnt() + "' and " + MainDBConstants.catRoot + "='CAT_SINONA'", null);
@@ -117,10 +134,16 @@ public class SeccionGActivity extends FragmentActivity implements
                 	if (!barcode) modifPage = (TextPage) mWizardModel.findByKey(labels.getCodMsEnt());
                 	if (barcode) modifPage = (BarcodePage) mWizardModel.findByKey(labels.getCodMsEntBc());
                 	dato = new Bundle();dato.putString(SIMPLE_DATA_KEY, encuesta.getCodMsEnt());modifPage.resetData(dato);modifPage.setmVisible(true);
-                	modifPage = (NumberPage) mWizardModel.findByKey(labels.getHbEnt());
-                	dato = new Bundle();dato.putString(SIMPLE_DATA_KEY, encuesta.getHbEnt().toString());modifPage.resetData(dato);modifPage.setmVisible(true);
                 }
             }
+        	
+        	if(encuesta.getHbEnt()!=null){
+        		if(encuesta.getHbEnt()>0){
+        			modifPage = (NumberPage) mWizardModel.findByKey(labels.getHbEnt());
+        			dato = new Bundle();dato.putString(SIMPLE_DATA_KEY, encuesta.getHbEnt().toString());modifPage.resetData(dato);modifPage.setmVisible(true);
+        		}
+        	}
+        	
         	if(tieneValor(encuesta.getMsNin())){
 	        	modifPage = (SingleFixedChoicePage) mWizardModel.findByKey(labels.getMsNin());
 	            datoCatalogo = sivinAdapter.getMessageResource(MainDBConstants.catKey + "='" + encuesta.getMsNin() + "' and " + MainDBConstants.catRoot + "='CAT_SINO'", null);
@@ -129,10 +152,16 @@ public class SeccionGActivity extends FragmentActivity implements
 	            	if (!barcode) modifPage = (TextPage) mWizardModel.findByKey(labels.getCodMsNin());
 	            	if (barcode) modifPage = (BarcodePage) mWizardModel.findByKey(labels.getCodMsNinBc());
 	            	dato = new Bundle();dato.putString(SIMPLE_DATA_KEY, encuesta.getCodMsNin());modifPage.resetData(dato);modifPage.setmVisible(true);
-	            	modifPage = (NumberPage) mWizardModel.findByKey(labels.getHbNin());
-	            	dato = new Bundle();dato.putString(SIMPLE_DATA_KEY, encuesta.getHbNin().toString());modifPage.resetData(dato);modifPage.setmVisible(true);
 	            }
         	}
+        	
+        	if(encuesta.getHbNin()!=null){
+        		if(encuesta.getHbNin()>0){
+        			modifPage = (NumberPage) mWizardModel.findByKey(labels.getHbNin());
+        			dato = new Bundle();dato.putString(SIMPLE_DATA_KEY, encuesta.getHbNin().toString());modifPage.resetData(dato);modifPage.setmVisible(true);
+        		}
+        	}
+        	
         	if(tieneValor(encuesta.getMoEnt())){
 	            modifPage = (SingleFixedChoicePage) mWizardModel.findByKey(labels.getMoEnt());
 	            datoCatalogo = sivinAdapter.getMessageResource(MainDBConstants.catKey + "='" + encuesta.getMoEnt() + "' and " + MainDBConstants.catRoot + "='CAT_SINONA'", null);
@@ -272,7 +301,6 @@ public class SeccionGActivity extends FragmentActivity implements
                         Intent i;
                         if (segmento!=null) arguments.putSerializable(Constants.SEGMENTO , segmento);
                         if (encuesta!=null) arguments.putSerializable(Constants.ENCUESTA , encuesta);
-                        if (nextViv!=null) arguments.putSerializable(Constants.VIVIENDA , nextViv);
                         i = new Intent(getApplicationContext(),
                                 MenuEncuestaActivity.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -433,10 +461,27 @@ public class SeccionGActivity extends FragmentActivity implements
         		visible = page.getData().getString(TextPage.SIMPLE_DATA_KEY) != null && catalogo.getCatKey().matches(Constants.SI);
         		changeStatus(mWizardModel.findByKey(labels.getCodMsEnt()),visible);
         		changeStatus(mWizardModel.findByKey(labels.getCodMsEntBc()),visible);
-        		changeStatus(mWizardModel.findByKey(labels.getHbEnt()),visible);
         		if (visible) {
         			changeStatus(mWizardModel.findByKey(labels.getCodMsEnt()),!barcode);
         			changeStatus(mWizardModel.findByKey(labels.getCodMsEntBc()),barcode);
+        		}
+            }
+        	if (page.getTitle().equals(labels.getHbEnt())) {
+        		if(tieneValor(page.getData().getString(TextPage.SIMPLE_DATA_KEY))) {
+	        		double hbEnt = Double.parseDouble(page.getData().getString(TextPage.SIMPLE_DATA_KEY));
+	        		if((hbEnt < 4 || hbEnt >18) && hbEnt != 88) {
+	        			page.resetData(new Bundle());
+	        			Toast.makeText(getApplicationContext(), getString(R.string.data_error) + "\n" + hbEnt,Toast.LENGTH_LONG).show();
+	        		}
+        		}
+            }
+        	if (page.getTitle().equals(labels.getHbNin())) {
+        		if(tieneValor(page.getData().getString(TextPage.SIMPLE_DATA_KEY))) {
+	        		double hbNin = Double.parseDouble(page.getData().getString(TextPage.SIMPLE_DATA_KEY));
+	        		if((hbNin < 4 || hbNin >18) && hbNin != 88) {
+	        			page.resetData(new Bundle());
+	        			Toast.makeText(getApplicationContext(), getString(R.string.data_error) + "\n" + hbNin,Toast.LENGTH_LONG).show();
+	        		}
         		}
             }
         	if (page.getTitle().equals(labels.getCodMsEntBc())||page.getTitle().equals(labels.getCodMsEnt())) {
@@ -444,7 +489,7 @@ public class SeccionGActivity extends FragmentActivity implements
         		String codigoMuestra = page.getData().getString(TextPage.SIMPLE_DATA_KEY);
         		if(!codigoMuestra.matches(codigoEncuesta)) {
         			page.resetData(new Bundle());
-        			Toast.makeText(getApplicationContext(), getString(R.string.sample_code_error) + "\n" + codigoMuestra,Toast.LENGTH_LONG).show();
+        			Toast.makeText(getApplicationContext(), getString(R.string.sample_code_error) + "\n" + codigoMuestra +getString(R.string.not_equals)+codigoEncuesta,Toast.LENGTH_LONG).show();
         		}
         	}
         	if (page.getTitle().equals(labels.getCodMsNinBc())||page.getTitle().equals(labels.getCodMsNin())) {
@@ -452,7 +497,7 @@ public class SeccionGActivity extends FragmentActivity implements
         		String codigoMuestra = page.getData().getString(TextPage.SIMPLE_DATA_KEY);
         		if(!codigoMuestra.matches(codigoEncuesta)) {
         			page.resetData(new Bundle());
-        			Toast.makeText(getApplicationContext(), getString(R.string.sample_code_error) + "\n" + codigoMuestra,Toast.LENGTH_LONG).show();
+        			Toast.makeText(getApplicationContext(), getString(R.string.sample_code_error) + "\n" + codigoMuestra +getString(R.string.not_equals)+codigoEncuesta,Toast.LENGTH_LONG).show();
         		}
         	}
         	if (page.getTitle().equals(labels.getCodMoEntBc())||page.getTitle().equals(labels.getCodMoEnt())) {
@@ -460,7 +505,7 @@ public class SeccionGActivity extends FragmentActivity implements
         		String codigoMuestra = page.getData().getString(TextPage.SIMPLE_DATA_KEY);
         		if(!codigoMuestra.matches(codigoEncuesta)) {
         			page.resetData(new Bundle());
-        			Toast.makeText(getApplicationContext(), getString(R.string.sample_code_error) + "\n" + codigoMuestra,Toast.LENGTH_LONG).show();
+        			Toast.makeText(getApplicationContext(), getString(R.string.sample_code_error) + "\n" + codigoMuestra +getString(R.string.not_equals)+codigoEncuesta,Toast.LENGTH_LONG).show();
         		}
         	}
         	if (page.getTitle().equals(labels.getMsNin())) {
@@ -468,7 +513,6 @@ public class SeccionGActivity extends FragmentActivity implements
         		visible = page.getData().getString(TextPage.SIMPLE_DATA_KEY) != null && catalogo.getCatKey().matches(Constants.SI);
         		changeStatus(mWizardModel.findByKey(labels.getCodMsNin()),visible);
         		changeStatus(mWizardModel.findByKey(labels.getCodMsNinBc()),visible);
-        		changeStatus(mWizardModel.findByKey(labels.getHbNin()),visible);
         		if (visible) {
         			changeStatus(mWizardModel.findByKey(labels.getCodMsNin()),!barcode);
         			changeStatus(mWizardModel.findByKey(labels.getCodMsNinBc()),barcode);
@@ -681,7 +725,6 @@ public class SeccionGActivity extends FragmentActivity implements
             Intent i;
             if (segmento!=null) arguments.putSerializable(Constants.SEGMENTO , segmento);
             if (encuesta!=null) arguments.putSerializable(Constants.ENCUESTA , encuesta);
-            if (nextViv!=null) arguments.putSerializable(Constants.VIVIENDA , nextViv);
             i = new Intent(getApplicationContext(),
                     MenuEncuestaActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

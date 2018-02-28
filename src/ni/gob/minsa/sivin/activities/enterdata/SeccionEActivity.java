@@ -75,7 +75,6 @@ public class SeccionEActivity extends FragmentActivity implements
     private DeviceInfo infoMovil;
     private static Segmento segmento = new Segmento();
     private static Encuesta encuesta = new Encuesta();
-    private static Integer nextViv = 0;
 	private String username;
 	private SharedPreferences settings;
 	private static final int EXIT = 1;
@@ -101,7 +100,6 @@ public class SeccionEActivity extends FragmentActivity implements
 		infoMovil = new DeviceInfo(SeccionEActivity.this);
         segmento = (Segmento) getIntent().getExtras().getSerializable(Constants.SEGMENTO);
         encuesta = (Encuesta) getIntent().getExtras().getSerializable(Constants.ENCUESTA);
-        nextViv = (Integer) getIntent().getExtras().getInt(Constants.VIVIENDA);
         
         String mPass = ((SivinApplication) this.getApplication()).getPassApp();
         mWizardModel = new SeccionEForm(this,mPass);
@@ -125,7 +123,7 @@ public class SeccionEActivity extends FragmentActivity implements
         										+"\n"+ this.getString(R.string.eselect).substring(4) + ": " + encuesta.getEselect()
         										+"\n"+ this.getString(R.string.sexselec).substring(4, 8) + ":" + datoCatalogo.getSpanish());
         	
-        	if(tieneValor(encuesta.getNlactmat())){  modifPage = (SingleFixedChoicePage) mWizardModel.findByKey(labels.getNlactmat());datoCatalogo = sivinAdapter.getMessageResource(MainDBConstants.catKey + "='" + encuesta.getNlactmat() + "' and " + MainDBConstants.catRoot + "='CAT_SINO'", null);  dato = new Bundle(); if(datoCatalogo!=null) dato.putString(SIMPLE_DATA_KEY, datoCatalogo.getSpanish()); modifPage.resetData(dato); modifPage.setmVisible(true);}
+        	if(tieneValor(encuesta.getNlactmat())){  modifPage = (SingleFixedChoicePage) mWizardModel.findByKey(labels.getNlactmat());datoCatalogo = sivinAdapter.getMessageResource(MainDBConstants.catKey + "='" + encuesta.getNlactmat() + "' and " + MainDBConstants.catRoot + "='CAT_SINONA'", null);  dato = new Bundle(); if(datoCatalogo!=null) dato.putString(SIMPLE_DATA_KEY, datoCatalogo.getSpanish()); modifPage.resetData(dato); modifPage.setmVisible(true);}
         	if(tieneValor(encuesta.getSexlmat())){  modifPage = (SingleFixedChoicePage) mWizardModel.findByKey(labels.getSexlmat());datoCatalogo = sivinAdapter.getMessageResource(MainDBConstants.catKey + "='" + encuesta.getSexlmat() + "' and " + MainDBConstants.catRoot + "='CAT_SEXO'", null);  dato = new Bundle(); if(datoCatalogo!=null) dato.putString(SIMPLE_DATA_KEY, datoCatalogo.getSpanish()); modifPage.resetData(dato); modifPage.setmVisible(true);}
         	if(tieneValor(encuesta.getPecho())){  modifPage = (SingleFixedChoicePage) mWizardModel.findByKey(labels.getPecho());datoCatalogo = sivinAdapter.getMessageResource(MainDBConstants.catKey + "='" + encuesta.getPecho() + "' and " + MainDBConstants.catRoot + "='CAT_SINO'", null);  dato = new Bundle(); if(datoCatalogo!=null) dato.putString(SIMPLE_DATA_KEY, datoCatalogo.getSpanish()); modifPage.resetData(dato); modifPage.setmVisible(true);}
         	if(tieneValor(encuesta.getMotNopecho())){  modifPage = (SingleFixedChoicePage) mWizardModel.findByKey(labels.getMotNopecho());datoCatalogo = sivinAdapter.getMessageResource(MainDBConstants.catKey + "='" + encuesta.getMotNopecho() + "' and " + MainDBConstants.catRoot + "='CAT_NODIOPECHO'", null);  dato = new Bundle(); if(datoCatalogo!=null) dato.putString(SIMPLE_DATA_KEY, datoCatalogo.getSpanish()); modifPage.resetData(dato); modifPage.setmVisible(true);}
@@ -278,7 +276,6 @@ public class SeccionEActivity extends FragmentActivity implements
                         Intent i;
                         if (segmento!=null) arguments.putSerializable(Constants.SEGMENTO , segmento);
                         if (encuesta!=null) arguments.putSerializable(Constants.ENCUESTA , encuesta);
-                        if (nextViv!=null) arguments.putSerializable(Constants.VIVIENDA , nextViv);
                         i = new Intent(getApplicationContext(),
                                 MenuEncuestaActivity.class);
                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -438,49 +435,57 @@ public class SeccionEActivity extends FragmentActivity implements
         	if (page.getTitle().equals(labels.getNlactmat())) {
         		cambiarFormParaLactMat(false);
         		catalogo = sivinAdapter.getMessageResource(MainDBConstants.spanish + "='" + page.getData().getString(TextPage.SIMPLE_DATA_KEY) + "' and " + MainDBConstants.catRoot + "='CAT_SINONA'", null);
-        		visible = page.getData().getString(TextPage.SIMPLE_DATA_KEY) != null && (catalogo.getCatKey().matches(Constants.SI)||catalogo.getCatKey().matches(Constants.NO));
-        		if(catalogo.getCatKey().matches(Constants.SI)) {
-        			if(!verificarSeleccionadoEsMenor24()) {
-        				page.resetData(new Bundle());
-        				Toast.makeText(getApplicationContext(), getString(R.string.nlactmatno),Toast.LENGTH_LONG).show();
-        			}
-        			else {
-        				SingleFixedChoicePage sexoPage = (SingleFixedChoicePage) mWizardModel.findByKey(labels.getSexlmat());
-        				MessageResource datoCatalogo = sivinAdapter.getMessageResource(MainDBConstants.catKey + "='" + encuesta.getSexselec() + "' and " + MainDBConstants.catRoot + "='CAT_SEXO'", null);
-        				dato = new Bundle(); if(catalogo!=null) dato.putString(SIMPLE_DATA_KEY, datoCatalogo.getSpanish()); sexoPage.resetData(dato); sexoPage.setmEnabled(false);sexoPage.setmVisible(true);
-        				NewDatePage fecNacPage = (NewDatePage) mWizardModel.findByKey(labels.getFnaclmat());
-        				dato = new Bundle();dato.putString(SIMPLE_DATA_KEY, mDateFormat.format(encuesta.getFnacselec()));fecNacPage.resetData(dato);fecNacPage.setmEnabled(false);fecNacPage.setmVisible(true);
-        				NumberPage edadPage = (NumberPage) mWizardModel.findByKey(labels.getEmeseslmat());
-        				dato = new Bundle();dato.putString(SIMPLE_DATA_KEY, encuesta.getEselect());edadPage.resetData(dato);edadPage.setmEnabled(false);edadPage.setmVisible(true);
-        			}
+        		if(catalogo!=null) {
+	        		if(catalogo.getCatKey().matches(Constants.SI)) {
+	        			if(!verificarSeleccionadoEsMenor24()) {
+	        				page.resetData(new Bundle());
+	        				Toast.makeText(getApplicationContext(), getString(R.string.nlactmatno),Toast.LENGTH_LONG).show();
+	        			}
+	        			else {
+	        				SingleFixedChoicePage sexoPage = (SingleFixedChoicePage) mWizardModel.findByKey(labels.getSexlmat());
+	        				MessageResource datoCatalogo = sivinAdapter.getMessageResource(MainDBConstants.catKey + "='" + encuesta.getSexselec() + "' and " + MainDBConstants.catRoot + "='CAT_SEXO'", null);
+	        				dato = new Bundle(); if(catalogo!=null) dato.putString(SIMPLE_DATA_KEY, datoCatalogo.getSpanish()); sexoPage.resetData(dato); sexoPage.setmEnabled(false);sexoPage.setmVisible(true);
+	        				NewDatePage fecNacPage = (NewDatePage) mWizardModel.findByKey(labels.getFnaclmat());
+	        				dato = new Bundle();dato.putString(SIMPLE_DATA_KEY, mDateFormat.format(encuesta.getFnacselec()));fecNacPage.resetData(dato);fecNacPage.setmEnabled(false);fecNacPage.setmVisible(true);
+	        				NumberPage edadPage = (NumberPage) mWizardModel.findByKey(labels.getEmeseslmat());
+	        				dato = new Bundle();dato.putString(SIMPLE_DATA_KEY, encuesta.getEselect());edadPage.resetData(dato);edadPage.setmEnabled(false);edadPage.setmVisible(true);
+	        				changeStatus(mWizardModel.findByKey(labels.getPecho()),true);
+	                		changeStatus(mWizardModel.findByKey(labels.getDapecho()),true);
+	                		changeStatus(mWizardModel.findByKey(labels.getElmatexcund()),true);
+	                		changeStatus(mWizardModel.findByKey(labels.getCombeb()),true);
+	                		changeStatus(mWizardModel.findByKey(labels.getEalimund()),true);
+	                		changeStatus(mWizardModel.findByKey(labels.getBebeLiq()),true);
+	                		changeStatus(mWizardModel.findByKey(labels.getReunionPeso()),true);
+	        			}
+	        		}
+	        		if(catalogo.getCatKey().matches(Constants.NO)) {
+	        			if(!verificarHayMenor24()) {
+	        				page.resetData(new Bundle());
+	        				Toast.makeText(getApplicationContext(), getString(R.string.nlactmatna),Toast.LENGTH_LONG).show();
+	        			}
+	        			else {
+	        				SingleFixedChoicePage sexoPage = (SingleFixedChoicePage) mWizardModel.findByKey(labels.getSexlmat());
+	        				dato = new Bundle(); sexoPage.resetData(dato); sexoPage.setmEnabled(true);sexoPage.setmVisible(true);
+	        				NewDatePage fecNacPage = (NewDatePage) mWizardModel.findByKey(labels.getFnaclmat());
+	        				dato = new Bundle();fecNacPage.resetData(dato);fecNacPage.setmEnabled(true);fecNacPage.setmVisible(true);
+	        				NumberPage edadPage = (NumberPage) mWizardModel.findByKey(labels.getEmeseslmat());
+	        				dato = new Bundle();edadPage.resetData(dato);edadPage.setmEnabled(false);edadPage.setmVisible(true);
+	        				changeStatus(mWizardModel.findByKey(labels.getPecho()),true);
+	                		changeStatus(mWizardModel.findByKey(labels.getDapecho()),true);
+	                		changeStatus(mWizardModel.findByKey(labels.getElmatexcund()),true);
+	                		changeStatus(mWizardModel.findByKey(labels.getCombeb()),true);
+	                		changeStatus(mWizardModel.findByKey(labels.getEalimund()),true);
+	                		changeStatus(mWizardModel.findByKey(labels.getBebeLiq()),true);
+	                		changeStatus(mWizardModel.findByKey(labels.getReunionPeso()),true);
+	        			}
+	        		}
+	        		if(catalogo.getCatKey().matches("3")) {
+	        			if(verificarHayMenor24()) {
+	        				page.resetData(new Bundle());
+	        				Toast.makeText(getApplicationContext(), getString(R.string.nlactmathay),Toast.LENGTH_LONG).show();
+	        			}
+	        		}
         		}
-        		if(catalogo.getCatKey().matches(Constants.NO)) {
-        			if(!verificarHayMenor24()) {
-        				page.resetData(new Bundle());
-        				Toast.makeText(getApplicationContext(), getString(R.string.nlactmatna),Toast.LENGTH_LONG).show();
-        			}
-        			else {
-        				SingleFixedChoicePage sexoPage = (SingleFixedChoicePage) mWizardModel.findByKey(labels.getSexlmat());
-        				dato = new Bundle(); sexoPage.resetData(dato); sexoPage.setmEnabled(true);sexoPage.setmVisible(true);
-        				NewDatePage fecNacPage = (NewDatePage) mWizardModel.findByKey(labels.getFnaclmat());
-        				dato = new Bundle();fecNacPage.resetData(dato);fecNacPage.setmEnabled(true);fecNacPage.setmVisible(true);
-        				NumberPage edadPage = (NumberPage) mWizardModel.findByKey(labels.getEmeseslmat());
-        				dato = new Bundle();edadPage.resetData(dato);edadPage.setmEnabled(false);edadPage.setmVisible(true);
-        			}
-        		}
-        		if(catalogo.getCatKey().matches("3")) {
-        			if(verificarHayMenor24()) {
-        				page.resetData(new Bundle());
-        				Toast.makeText(getApplicationContext(), getString(R.string.nlactmathay),Toast.LENGTH_LONG).show();
-        			}
-        		}
-        		changeStatus(mWizardModel.findByKey(labels.getPecho()),visible);
-        		changeStatus(mWizardModel.findByKey(labels.getDapecho()),visible);
-        		changeStatus(mWizardModel.findByKey(labels.getElmatexcund()),visible);
-        		changeStatus(mWizardModel.findByKey(labels.getCombeb()),visible);
-        		changeStatus(mWizardModel.findByKey(labels.getEalimund()),visible);
-        		changeStatus(mWizardModel.findByKey(labels.getBebeLiq()),visible);
-        		changeStatus(mWizardModel.findByKey(labels.getReunionPeso()),visible);
             }
         	if (page.getTitle().equals(labels.getFnaclmat())) {
         		Date fnacEntParsed = mDateFormat.parse(page.getData().getString(TextPage.SIMPLE_DATA_KEY));
@@ -869,7 +874,6 @@ public class SeccionEActivity extends FragmentActivity implements
             Intent i;
             if (segmento!=null) arguments.putSerializable(Constants.SEGMENTO , segmento);
             if (encuesta!=null) arguments.putSerializable(Constants.ENCUESTA , encuesta);
-            if (nextViv!=null) arguments.putSerializable(Constants.VIVIENDA , nextViv);
             i = new Intent(getApplicationContext(),
                     MenuEncuestaActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -13,6 +13,7 @@ public class EncuestaIdentificacionFormLabels {
 	protected String introMessageHint;
 	protected String fechaEntrevista;
 	protected String fechaEntrevistaHint;
+	protected String encNum;
 	protected String encuestador;
 	protected String encuestadorHint;
 	protected String supervisor;
@@ -28,6 +29,7 @@ public class EncuestaIdentificacionFormLabels {
 		Resources res = SivinApplication.getContext().getResources();
 		introMessage = res.getString(R.string.intro);
 		introMessageHint = res.getString(R.string.intro_message);
+		encNum = res.getString(R.string.encNum);
 		fechaEntrevista = res.getString(R.string.fechaEntrevista);
 		fechaEntrevistaHint = res.getString(R.string.fechaEntrevistaHint);
 		encuestador = res.getString(R.string.encuestador);
@@ -42,7 +44,8 @@ public class EncuestaIdentificacionFormLabels {
 		numPersonasHint = res.getString(R.string.numPersonasHint);
 	}
 	
-		public String getIntroMessage() {
+	
+	public String getIntroMessage() {
 		return introMessage;
 	}
 
@@ -55,7 +58,13 @@ public class EncuestaIdentificacionFormLabels {
 		return introMessageHint;
 	}
 	
-	
+	public String getEncNum() {
+		return encNum;
+	}
+
+	public void setEncNum(String encNum) {
+		this.encNum = encNum;
+	}
 
 	public String getFechaEntrevista() {
 		return fechaEntrevista;

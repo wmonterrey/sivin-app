@@ -38,6 +38,10 @@
     <string name="data_error">Este dato es inválido!</string>
     <string name="pin_error">Número de pin inválido!</string>
     <string name="sample_code_error">El código de muestra es inválido!</string>
+    <string name="not_equals"> no coincide con </string>
+    <string name="not_SE">Este código no es de sangre de entrevistada!</string>
+    <string name="not_SN">Este código no es de sangre de niñ@!</string>
+    <string name="not_OE">Este código no es de orina de entrevistada!</string>
     <string name="bd_error">Error de acceso a base de datos, se ha producido un error inesperado!\n La aplicación se va a cerrar, sentimos el inconveniente.</string>
     <string name="code_notfound">Identificador no encontrado!</string>
     <string name="scan_error">Esta lectura es inválida!</string>

@@ -30,7 +30,6 @@ public class UbicacionActivity extends AbstractAsyncActivity {
 	private SivinAdapter sivinAdapter;
 	private static Encuesta mEncuesta = new Encuesta();
 	private static Segmento mSegmento = new Segmento();
-	private static Integer nextViv = 0;
 	private TextView textViewEncuesta;
 	private TextView textViewLatitud;
 	private TextView textViewLongitud;
@@ -56,7 +55,6 @@ public class UbicacionActivity extends AbstractAsyncActivity {
 		//Aca se recupera los datos de la encuesta y el segmento
 		mSegmento = (Segmento) getIntent().getExtras().getSerializable(Constants.SEGMENTO);
 		mEncuesta = (Encuesta) getIntent().getExtras().getSerializable(Constants.ENCUESTA);
-		nextViv = (Integer) getIntent().getExtras().getInt(Constants.VIVIENDA);
 		
 		textViewEncuesta = (TextView) findViewById(R.id.label_encuesta);
 		textViewLatitud = (TextView) findViewById(R.id.label_latitud);
@@ -140,7 +138,6 @@ public class UbicacionActivity extends AbstractAsyncActivity {
 	 		Intent i;
             if (mSegmento!=null) arguments.putSerializable(Constants.SEGMENTO , mSegmento);
             if (mEncuesta!=null) arguments.putSerializable(Constants.ENCUESTA , mEncuesta);
-            if (nextViv!=null) arguments.putSerializable(Constants.VIVIENDA , nextViv);
             i = new Intent(getApplicationContext(),
                     MenuEncuestaActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

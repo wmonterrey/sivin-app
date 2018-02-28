@@ -30,7 +30,7 @@ public class SegmentoAdapter extends ArrayAdapter<Segmento> {
 
 			TextView textView = (TextView) v.findViewById(R.id.dep_text);
 			if (textView != null) {
-				textView.setText(p.getDepartamento());
+				textView.setText(p.getComunidad());
 			}
 			
 			textView = (TextView) v.findViewById(R.id.mun_text);
@@ -42,7 +42,7 @@ public class SegmentoAdapter extends ArrayAdapter<Segmento> {
 			textView.setText(p.getCodigo());
 			
 			textView = (TextView) v.findViewById(R.id.proc_text);
-			textView.setText(p.getProcedencia());
+			textView.setText(p.getDepartamento());
 		}
 		return v;
 	}

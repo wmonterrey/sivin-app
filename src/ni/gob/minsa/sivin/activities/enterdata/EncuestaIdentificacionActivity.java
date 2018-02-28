@@ -49,6 +49,7 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -71,7 +72,6 @@ public class EncuestaIdentificacionActivity extends FragmentActivity implements
     private DeviceInfo infoMovil;
     private static Segmento segmento = new Segmento();
     private static Encuesta encuesta = new Encuesta();
-    private static Integer nextViv = 0;
 	private String username;
 	private SharedPreferences settings;
 	private static final int EXIT = 1;
@@ -98,7 +98,6 @@ public class EncuestaIdentificacionActivity extends FragmentActivity implements
 		infoMovil = new DeviceInfo(EncuestaIdentificacionActivity.this);
         segmento = (Segmento) getIntent().getExtras().getSerializable(Constants.SEGMENTO);
         encuesta = (Encuesta) getIntent().getExtras().getSerializable(Constants.ENCUESTA);
-        nextViv = (Integer) getIntent().getExtras().getInt(Constants.VIVIENDA);
 		
         String mPass = ((SivinApplication) this.getApplication()).getPassApp();
         mWizardModel = new EncuestaIdentificacionForm(this,mPass);
@@ -109,6 +108,29 @@ public class EncuestaIdentificacionActivity extends FragmentActivity implements
         //Abre la base de datos
 		sivinAdapter = new SivinAdapter(this.getApplicationContext(),mPass,false,false);
 		sivinAdapter.open();
+		
+		List<Encuesta> mEncuestas = sivinAdapter.getEncuestas(MainDBConstants.segmento + " = '"+ segmento.getIdent() + "'", MainDBConstants.numEncuesta);
+		List<Integer> mNumeros = new ArrayList<Integer>();
+		for (int i=1;i<11;i++) {
+			mNumeros.add(i);
+		}
+		for(Encuesta enc:mEncuestas) {
+			if(mNumeros.contains(enc.getNumEncuesta())) {
+				mNumeros.remove(enc.getNumEncuesta());
+			}
+		}
+		
+		String[] numeros;
+		numeros = new String[mNumeros.size()];
+        int index = 0;
+        for (Integer num: mNumeros){
+        	numeros[index] = num.toString();
+            index++;
+        }
+		
+		
+		SingleFixedChoicePage pageNumEncuesta = (SingleFixedChoicePage) mWizardModel.findByKey(labels.getEncNum());
+		pageNumEncuesta.setChoices(numeros);
 
         if (encuesta != null) {
         	Bundle dato = null;
@@ -120,6 +142,13 @@ public class EncuestaIdentificacionActivity extends FragmentActivity implements
 	        	modifPage.resetData(dato);
 	        	modifPage.setmVisible(true);
 	        }
+	        if(encuesta.getNumEncuesta()!=null){
+                modifPage = (SingleFixedChoicePage) mWizardModel.findByKey(labels.getEncNum());
+                dato = new Bundle();
+                dato.putString(SIMPLE_DATA_KEY, encuesta.getNumEncuesta().toString());
+                modifPage.resetData(dato);
+                modifPage.setmVisible(true);
+            }
 	        if(tieneValor(encuesta.getSexJefeFamilia())){
                 modifPage = (SingleFixedChoicePage) mWizardModel.findByKey(labels.getSexJefeFamilia());
                 MessageResource catSexo = sivinAdapter.getMessageResource(MainDBConstants.catKey + "='" + encuesta.getSexJefeFamilia() + "' and " + MainDBConstants.catRoot + "='CAT_SEXO'", null);
@@ -499,6 +528,7 @@ public class EncuestaIdentificacionActivity extends FragmentActivity implements
             String sexJefeFamilia = datos.getString(this.getString(R.string.sexJefeFamilia));
             String numPersonas = datos.getString(this.getString(R.string.numPersonas));
             String encuestador = datos.getString(this.getString(R.string.encuestador));
+            String encNum = datos.getString(this.getString(R.string.encNum));
             //String supervisor = datos.getString(this.getString(R.string.supervisor));
             
             if (tieneValor(jefeFamilia)) {
@@ -525,7 +555,7 @@ public class EncuestaIdentificacionActivity extends FragmentActivity implements
             if (tieneValor(numPersonas)) encuesta.setNumPersonas(Integer.valueOf(numPersonas));
             
             encuesta.setSegmento(segmento);
-            encuesta.setNumEncuesta(nextViv);
+            encuesta.setNumEncuesta(Integer.valueOf(encNum));
             encuesta.setFechaEntrevista(fechaEntrevista);
             if (encuesta.getRecordDate()==null) encuesta.setRecordDate(new Date());
             encuesta.setRecordUser(username);
@@ -543,7 +573,7 @@ public class EncuestaIdentificacionActivity extends FragmentActivity implements
             
             if(encuesta.getIdent()==null) {
             	encuesta.setIdent(ident);
-            	encuesta.setCodigo(segmento.getCodigo()+"-"+nextViv);
+            	encuesta.setCodigo(segmento.getCodigo()+"-"+encNum);
             	sivinAdapter.crearEncuesta(encuesta);
             }else {
             	sivinAdapter.editarEncuesta(encuesta);
@@ -561,7 +591,6 @@ public class EncuestaIdentificacionActivity extends FragmentActivity implements
             Intent i;
             if (segmento!=null) arguments.putSerializable(Constants.SEGMENTO , segmento);
             if (encuesta!=null) arguments.putSerializable(Constants.ENCUESTA , encuesta);
-            if (nextViv!=null) arguments.putSerializable(Constants.VIVIENDA , nextViv);
             i = new Intent(getApplicationContext(),
                     MenuEncuestaActivity.class);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
