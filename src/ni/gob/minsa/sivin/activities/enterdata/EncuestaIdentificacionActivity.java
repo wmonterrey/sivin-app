@@ -570,10 +570,10 @@ public class EncuestaIdentificacionActivity extends FragmentActivity implements
             else {
             	encuesta.setEstado(Constants.STATUS_NOT_FINALIZED);
             }
+            encuesta.setCodigo(segmento.getCodigo()+"-"+encNum);
             
             if(encuesta.getIdent()==null) {
             	encuesta.setIdent(ident);
-            	encuesta.setCodigo(segmento.getCodigo()+"-"+encNum);
             	sivinAdapter.crearEncuesta(encuesta);
             }else {
             	sivinAdapter.editarEncuesta(encuesta);

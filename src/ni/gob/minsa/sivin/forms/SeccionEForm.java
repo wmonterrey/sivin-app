@@ -85,7 +85,7 @@ public class SeccionEForm extends AbstractWizardModel {
     	Page ediopechound = new SingleFixedChoicePage(this,labels.getEdiopechound(), labels.getEdiopechoundHint(), Constants.WIZARD, false).setChoices(catTLact2).setRequired(true);
     	Page ediopechocant = new NumberPage(this,labels.getEdiopechocant(),labels.getEdiopechocantHint(),Constants.WIZARD, false).setRangeValidation(true, 1, 12).setRequired(true);
     	Page combeb = new SingleFixedChoicePage(this,labels.getCombeb(), labels.getCombebHint(), Constants.WIZARD, false).setChoices(catSNNR).setRequired(true);
-    	Page ealimund = new SingleFixedChoicePage(this,labels.getEalimund(), labels.getEalimundHint(), Constants.WIZARD, false).setChoices(catTLact2).setRequired(true);
+    	Page ealimund = new SingleFixedChoicePage(this,labels.getEalimund(), labels.getEalimundHint(), Constants.WIZARD, false).setChoices(catTLact).setRequired(true);
     	Page ealimcant = new NumberPage(this,labels.getEalimcant(),labels.getEalimcantHint(),Constants.WIZARD, false).setRangeValidation(true, 1, 12).setRequired(true);
     	Page bebeLiq = new MultipleFixedChoicePage(this,labels.getBebeLiq(), labels.getBebeLiqHint(), Constants.WIZARD, false).setChoices(catBNin).setRequired(true);
     	Page reunionPeso = new SingleFixedChoicePage(this,labels.getReunionPeso(), labels.getReunionPesoHint(), Constants.WIZARD, false).setChoices(catSNNR).setRequired(true);
