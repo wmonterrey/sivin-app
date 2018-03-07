@@ -76,6 +76,7 @@
     <string name="submit_confirm_button">Guardar</string>
     <string name="remember">Recordar</string>
     <string name="outofrange">Fuera de rango</string>
+    <string name="total">Total de encuestas</string>
     <string name="pending_data">Hay datos/secciones pendientes de ingresar. Aún desea salir de esta pantalla?</string>
     
     <string name="gpstitle">Configuración GPS</string>

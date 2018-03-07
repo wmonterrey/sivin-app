@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import ni.gob.minsa.sivin.activities.IngresarEncuestaActivity;
 import ni.gob.minsa.sivin.activities.ListaSegmentosActivity;
+import ni.gob.minsa.sivin.activities.ViewDataActivity;
 import ni.gob.minsa.sivin.adapters.MainActivityAdapter;
 import ni.gob.minsa.sivin.database.SivinAdapter;
 import ni.gob.minsa.sivin.domain.Segmento;
@@ -134,7 +135,12 @@ public class MainActivity extends AbstractAsyncListActivity {
 			break;	
 		case 4: 
 			createDialog(CATALOG);
-			break;				
+			break;		
+		case 5: 
+			i = new Intent(getApplicationContext(),
+					ViewDataActivity.class);
+			startActivity(i);
+			break;			
 		default: 
 			String s = (String) getListAdapter().getItem(position);
 			Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();

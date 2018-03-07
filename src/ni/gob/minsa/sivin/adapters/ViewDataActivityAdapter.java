@@ -3,8 +3,6 @@ package ni.gob.minsa.sivin.adapters;
 
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,15 +11,13 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import ni.gob.minsa.sivin.R;
 
-public class MainActivityAdapter extends ArrayAdapter<String> {
+public class ViewDataActivityAdapter extends ArrayAdapter<String> {
 
 	private final String[] values;
-	private Integer numCatalogos;
-	public MainActivityAdapter(Context context, int textViewResourceId,
-			String[] values, Integer numCatalogos) {
+	public ViewDataActivityAdapter(Context context, int textViewResourceId,
+			String[] values) {
 		super(context, textViewResourceId, values);
 		this.values = values;
-		this.numCatalogos = numCatalogos;
 	}
 
 	@Override
@@ -39,7 +35,7 @@ public class MainActivityAdapter extends ArrayAdapter<String> {
 		Drawable img = null;
 		switch (position){
 		case 0: 
-			img=getContext().getResources().getDrawable( R.drawable.ic_menu_find_holo_light);
+			img=getContext().getResources().getDrawable( R.drawable.ic_menu_month);
 			textView.setCompoundDrawablesWithIntrinsicBounds(img, null, null, null);
 			break;
 		case 1: 
@@ -47,26 +43,9 @@ public class MainActivityAdapter extends ArrayAdapter<String> {
 			textView.setCompoundDrawablesWithIntrinsicBounds(img, null, null, null);
 			break;	
 		case 2: 
-			img=getContext().getResources().getDrawable( R.drawable.ic_menu_download);
+			img=getContext().getResources().getDrawable( R.drawable.ic_menu_mark);
 			textView.setCompoundDrawablesWithIntrinsicBounds(img, null, null, null);
 			break;
-		case 3: 
-			img=getContext().getResources().getDrawable( R.drawable.ic_menu_upload);
-			textView.setCompoundDrawablesWithIntrinsicBounds(img, null, null, null);
-			break;
-		case 4: 
-			textView.setText(textView.getText() + "(" + numCatalogos +")");
-			img=getContext().getResources().getDrawable( R.drawable.ic_menu_settings_holo_light);
-			textView.setCompoundDrawablesWithIntrinsicBounds(img, null, null, null);
-			if (numCatalogos < 1){
-                textView.setTextColor(Color.RED);
-                textView.setTypeface(null, Typeface.BOLD);
-            }
-			break;
-		case 5: 
-			img=getContext().getResources().getDrawable( R.drawable.ic_menu_search_holo_light);
-			textView.setCompoundDrawablesWithIntrinsicBounds(img, null, null, null);
-			break;					
 		default:
 			img=getContext().getResources().getDrawable( R.drawable.ic_launcher);
 			textView.setCompoundDrawablesWithIntrinsicBounds(img, null, null, null);

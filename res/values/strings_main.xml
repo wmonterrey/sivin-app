@@ -4,4 +4,10 @@
     <string name="download"> Descargar Datos</string>
     <string name="upload"> Subir Datos</string>
     <string name="catalog"> Catálogos</string>
+    <string name="viewdata"> Ver datos</string>
+    
+    <string name="bydate"> Por fecha</string>
+    <string name="bysegmento"> Por segmento</string>
+    <string name="bystatus"> Por estado</string>
+    
 </resources>

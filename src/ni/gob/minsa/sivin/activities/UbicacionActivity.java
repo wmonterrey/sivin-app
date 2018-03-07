@@ -101,6 +101,15 @@ public class UbicacionActivity extends AbstractAsyncActivity {
 	 				mEncuesta.setDeviceid(infoMovil.getDeviceId());
 	 				mEncuesta.setLatitud(String.valueOf(gps.getLatitude()));
 	 				mEncuesta.setLongitud(String.valueOf(gps.getLongitude()));
+	 				if (mEncuesta.getEstado()==Constants.STATUS_SUBMITTED) {
+	 					mEncuesta.setEstado(Constants.STATUS_NOT_SUBMITTED);
+	 	            }
+	 	            else if (mEncuesta.getEstado()==Constants.STATUS_NOT_SUBMITTED) {
+	 	            	mEncuesta.setEstado(Constants.STATUS_NOT_SUBMITTED);
+	 	            }
+	 	            else {
+	 	            	mEncuesta.setEstado(Constants.STATUS_NOT_FINALIZED);
+	 	            }
 	 				sivinAdapter.editarEncuesta(mEncuesta);
 	 				sivinAdapter.close();
 	 	            FileUtils.createFolder(FileUtils.BACKUP_PATH);

@@ -13,8 +13,12 @@ public class Constants {
 	public static final String PIN_DOWNLOAD = "695687";
 	// status for records
     public static final char STATUS_NOT_FINALIZED = '0';
+    public static final String STATUS_NOT_FINALIZED_DESC = "No finalizado";
     public static final char STATUS_NOT_SUBMITTED = '1';
+    public static final String STATUS_NOT_SUBMITTED_DESC = "No enviado";
     public static final char STATUS_SUBMITTED = '2';
+    public static final String STATUS_SUBMITTED_DESC = "Enviado al servidor";
+    public static final String STATUS_UNKNOWN = "Desconocido";
     
     //Forms
     public static final String SEGMENTO = "segmento";
@@ -33,6 +37,11 @@ public class Constants {
 	public static final String WIZARD = "#ff0099cc";
 	public static final String HINT_TEXT = "#66000000";
 	
+	//Reportes
+	public static final String REPORTE_NAME = "reporte";
+    public static final String REPORTE_1 = "Encuestas por Fecha";
+    public static final String REPORTE_2 = "Encuestas por Segmento";
+    public static final String REPORTE_3 = "Encuestas por Estado";
 
 }
 

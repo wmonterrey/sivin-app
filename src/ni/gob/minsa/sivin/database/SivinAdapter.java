@@ -1,6 +1,8 @@
 package ni.gob.minsa.sivin.database;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -442,6 +444,67 @@ public class SivinAdapter {
     	total = cursor.getCount();
     	if (!cursor.isClosed()) cursor.close();
         return total;
+    }
+    
+  //Obtener el numero de registros por fecha
+    public List<Object[]> getNumeroRegistrosFecha() {
+    	List<Object[]> resultados = new ArrayList<Object[]>();
+    	SimpleDateFormat mDateFormat = new SimpleDateFormat("MMM dd, yyyy");
+    	Cursor cursor = mDb.rawQuery("select fechaEntrevista, count(*) from encuestas where pasive = '0' group by fechaEntrevista order by fechaEntrevista", null);
+    	cursor.moveToFirst();
+    	resultados.clear();
+		do{
+			Object[] resultado = new Object[2];
+			resultado[0] = mDateFormat.format(new Date(cursor.getLong(0)));
+			resultado[1] = cursor.getString(1);
+			resultados.add(resultado);
+		} while (cursor.moveToNext());
+    	if (!cursor.isClosed()) cursor.close();
+        return resultados;
+    }
+    
+    //Obtener el numero de registros por segmento
+    public List<Object[]> getNumeroRegistrosSegmento() {
+    	List<Object[]> resultados = new ArrayList<Object[]>();
+    	Cursor cursor = mDb.rawQuery("select segmento, count(*) from encuestas where pasive = '0' group by segmento order by segmento", null);
+    	cursor.moveToFirst();
+    	resultados.clear();
+		do{
+			Object[] resultado = new Object[2];
+			Segmento segmento  = this.getSegmento("segmento  = '" + cursor.getString(0) +"'", null);
+			resultado[0] = segmento.getComunidad();
+			resultado[1] = cursor.getString(1);
+			resultados.add(resultado);
+		} while (cursor.moveToNext());
+    	if (!cursor.isClosed()) cursor.close();
+        return resultados;
+    }
+    
+  //Obtener el numero de registros por estado
+    public List<Object[]> getNumeroRegistrosEstado() {
+    	List<Object[]> resultados = new ArrayList<Object[]>();
+    	Cursor cursor = mDb.rawQuery("select estado, count(*) from encuestas where pasive = '0' group by estado order by estado", null);
+    	cursor.moveToFirst();
+    	resultados.clear();
+		do{
+			Object[] resultado = new Object[2];
+			if(cursor.getString(0).charAt(0)==Constants.STATUS_NOT_FINALIZED) {
+				resultado[0] = Constants.STATUS_NOT_FINALIZED_DESC;
+			}
+			else if(cursor.getString(0).charAt(0)==Constants.STATUS_NOT_SUBMITTED) {
+				resultado[0] = Constants.STATUS_NOT_SUBMITTED_DESC;
+			}
+			else if(cursor.getString(0).charAt(0)==Constants.STATUS_SUBMITTED) {
+				resultado[0] = Constants.STATUS_SUBMITTED_DESC;
+			}
+			else {
+				resultado[0] = Constants.STATUS_UNKNOWN;
+			}
+			resultado[1] = cursor.getString(1);
+			resultados.add(resultado);
+		} while (cursor.moveToNext());
+    	if (!cursor.isClosed()) cursor.close();
+        return resultados;
     }
 	
 	public Boolean verificarData() throws SQLException{

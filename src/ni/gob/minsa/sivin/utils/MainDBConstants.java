@@ -389,7 +389,7 @@ public class MainDBConstants {
 	public static final String patConsCarCaza = "patConsCarCaza";
 	public static final String patConsCarCazaFrec = "patConsCarCazaFrec";
 	
-	//Crear tabla usuarios segmentos
+	//Crear tabla usuarios encuestas
 	public static final String CREATE_ENCUESTA_TABLE = "create table if not exists "
 			+ ENCUESTA_TABLE + " ("
 			+ ident + " text not null, "
