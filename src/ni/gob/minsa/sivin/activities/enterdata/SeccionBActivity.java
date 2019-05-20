@@ -198,7 +198,7 @@ public class SeccionBActivity extends FragmentActivity implements
         	if(tieneValor(encuesta.getTiemHierro())){
 	        	modifPage = (TextPage) mWizardModel.findByKey(labels.getTiemHierro());
 	        	dato = new Bundle();dato.putString(SIMPLE_DATA_KEY, encuesta.getTiemHierro());modifPage.resetData(dato);modifPage.setmVisible(true);
-	        	datoCatalogo = sivinAdapter.getMessageResource(MainDBConstants.catKey + "='" + encuesta.getThierround() + "' and " + MainDBConstants.catRoot + "='CAT_HIERROTIEMP'", null);
+	        	datoCatalogo = sivinAdapter.getMessageResource(MainDBConstants.catKey + "='" + encuesta.getTiemHierroUnd() + "' and " + MainDBConstants.catRoot + "='CAT_HIERROTIEMP'", null);
                 NumberPage hierroCant = (NumberPage) mWizardModel.findByKey(labels.getTiemHierro());
 	        	if(datoCatalogo.getCatKey().matches("d")){
 	        		hierroCant.setHint("En días desde 1 hasta 270");
@@ -587,6 +587,7 @@ public class SeccionBActivity extends FragmentActivity implements
         		visible = page.getData().getString(TextPage.SIMPLE_DATA_KEY) != null && catalogo.getCatKey().matches(Constants.SI);
         		cambiarFormParaHierro(false);
         		changeStatus(mWizardModel.findByKey(labels.getEntDioluz()),!visible);
+        		changeStatus(mWizardModel.findByKey(labels.getHierro()),visible);
             }
         	if (page.getTitle().equals(labels.getEntDioluz())) {
         		catalogo = sivinAdapter.getMessageResource(MainDBConstants.spanish + "='" + page.getData().getString(TextPage.SIMPLE_DATA_KEY) + "' and " + MainDBConstants.catRoot + "='CAT_SINONR'", null);
